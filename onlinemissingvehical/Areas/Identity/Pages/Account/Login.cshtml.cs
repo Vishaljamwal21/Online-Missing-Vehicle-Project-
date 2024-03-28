@@ -129,7 +129,7 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                         else
                         {
                             _logger.LogInformation("User logged in.");
-                            return RedirectToAction("Index", "MissingVehical", new { area = "Customer" }); // Redirect to MissingVehical index for user
+                            return RedirectToAction("Index", "Home", new { area = "Customer" }); // Redirect to home index for admin
                         }
                     }
                     if (result.RequiresTwoFactor)

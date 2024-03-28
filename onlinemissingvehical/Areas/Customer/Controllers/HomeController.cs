@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using onlinemissingvehical.Data;
 using onlinemissingvehical.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace onlinemissingvehical.Areas.Customer.Controllers
 {
@@ -21,12 +22,24 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            if (User.Identity.IsAuthenticated)
             {
-                var statusUpdates = await _context.StatusUpdates
-                    .Include(s => s.MissingVehicle)
-                    .ToListAsync();
-                return View(statusUpdates);
+                if (User.IsInRole("Admin"))
+                {
+                    var statusUpdates = await _context.StatusUpdates
+                        .Include(s => s.MissingVehicle)
+                        .ToListAsync();
+                    return View(statusUpdates);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var statusUpdates = await _context.StatusUpdates
+                        .Include(s => s.MissingVehicle)
+                        .Where(s => s.MissingVehicle.UserId == userId)
+                        .ToListAsync();
+                    return View(statusUpdates);
+                }
             }
 
             return RedirectToAction("Login", "Account", new { area = "Identity" });

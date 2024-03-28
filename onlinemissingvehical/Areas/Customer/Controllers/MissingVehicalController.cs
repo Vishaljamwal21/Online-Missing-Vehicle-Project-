@@ -51,7 +51,13 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SaveorEdit(MissingVehicle missingVehicle)
         {
-            missingVehicle.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            if (_context.MissingVehicles.Any(m => m.LicensePlateNumber == missingVehicle.LicensePlateNumber && m.Id != missingVehicle.Id))
+            {
+                ModelState.AddModelError("LicensePlateNumber", "License plate number already exists.");
+                return View(missingVehicle);
+            }
+            missingVehicle.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);           
 
             var webRootPath = _webHostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;

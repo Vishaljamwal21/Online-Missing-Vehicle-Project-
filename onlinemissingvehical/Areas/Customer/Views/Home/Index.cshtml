@@ -5,11 +5,10 @@
         border-radius: 20px;
     }
 
-    /* Add dark border to the table */
     .dark-border-table {
         border: 1px solid #333;
     }
-    /* Set background color of the page to light gray */
+    
     body {
         background-color: #f0f0f0;
     }
@@ -25,7 +24,7 @@
 </div>
 
 <table id="statusUpdatesTable" class="table dark-border-table">
-    <!-- Apply dark border class to the table -->
+  
     <thead>
         <tr>
             <th>Status</th>
@@ -36,7 +35,10 @@
             <th>Last Known Location</th>
             <th>Image</th>
             <th>Comment</th>
-            <th>Action</th>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th>Action</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -69,18 +71,21 @@
                         <span>No comment added</span>
                     }
                 </td>
-                <td>
-                    @if (statusUpdate.Status == "Recovered")
-                    {
-                        <span>Found</span>
-                    }
-                    else
-                    {
-                        <a asp-area="Admin" asp-controller="Status" asp-action="Create" asp-route-id="@statusUpdate.MissingVehicle.Id" class="btn btn-primary">
-                            Status
-                        </a>
-                    }
-                </td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) // Check if user is authenticated and is an admin
+                {
+                    <td>
+                        @if (statusUpdate.Status == "Recovered")
+                        {
+                            <span>Found</span>
+                        }
+                        else 
+                        {
+                            <a asp-area="Admin" asp-controller="Status" asp-action="Create" asp-route-id="@statusUpdate.MissingVehicle.Id" class="btn btn-primary">
+                                Status
+                            </a>
+                        }
+                    </td>
+                }
 
             </tr>
         }

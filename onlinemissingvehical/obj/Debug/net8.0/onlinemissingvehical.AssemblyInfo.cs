@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("onlinemissingvehical")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2cec764a0f4f7855e8ff946cabfc88f746c3e37c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddbdeb32df63d59488c73731dee049a5bade6739")]
 [assembly: System.Reflection.AssemblyProductAttribute("onlinemissingvehical")]
 [assembly: System.Reflection.AssemblyTitleAttribute("onlinemissingvehical")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
