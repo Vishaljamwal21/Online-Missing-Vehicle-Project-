@@ -101,9 +101,19 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
             //Add custom Codes
+            [Required(ErrorMessage = "The Name field is required.")]
+            [Display(Name = "Name")]
             public string Name { get; set; }
+
+            [Required(ErrorMessage = "The City field is required.")]
+            [Display(Name = "City")]
             public string City { get; set; }
+
+            [Required(ErrorMessage = "The State field is required.")]
+            [Display(Name = "State")]
             public string State { get; set; }
+            [Required(ErrorMessage = "The Phone Number field is required.")]
+            [Display(Name = "Phone Number")]
             public int PhoneNumber { get; set; }
             public string Role { get; set; }
         }

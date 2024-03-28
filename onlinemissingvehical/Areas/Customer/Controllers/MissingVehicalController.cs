@@ -87,7 +87,6 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
                 int smtpPort = 587;
                 string smtpUsername = "thakurvishaljamwal@outlook.com";
                 string smtpPassword = "Vishal@2106";
-                // Fetch license plate number of the missing vehicle
                 var licensePlateNumber = missingVehicle.LicensePlateNumber;
                 // Create the email message
                 MailMessage mail = new MailMessage();

@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<onlinemissingvehical.Models.MissingVehicle>
+
 <div class="row">
     <div class="col-9">
         <h2 class="text-primary">Complaint List</h2>
     </div>
     <div class="col-3">
-        <a asp-action="SaveOrEdit" class="btn btn-info form-control">
+        <a asp-action="SaveOrEdit" class="btn btn-primary form-control">
             <i class="fas fa-plus">&nbsp;Add New Complaint</i>
         </a>
     </div>
@@ -53,7 +54,7 @@
                         }
                     </td>
                     <td>
-                        <a asp-action="SaveOrEdit" asp-route-id="@item.Id" class="btn btn-info">
+                        <a asp-action="SaveOrEdit" asp-route-id="@item.Id" class="btn btn-primary">
                             Edit
                         </a>
                         <br/>

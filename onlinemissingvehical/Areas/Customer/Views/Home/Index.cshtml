@@ -9,6 +9,10 @@
     .dark-border-table {
         border: 1px solid #333;
     }
+    /* Set background color of the page to light gray */
+    body {
+        background-color: #f0f0f0;
+    }
 </style>
 
 <div class="mb-3">
@@ -72,7 +76,7 @@
                     }
                     else
                     {
-                        <a asp-area="Admin" asp-controller="Status" asp-action="Create" asp-route-id="@statusUpdate.MissingVehicle.Id" class="btn btn-info">
+                        <a asp-area="Admin" asp-controller="Status" asp-action="Create" asp-route-id="@statusUpdate.MissingVehicle.Id" class="btn btn-primary">
                             Status
                         </a>
                     }

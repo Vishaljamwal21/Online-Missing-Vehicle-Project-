@@ -2,7 +2,7 @@
 
 <h2>Subscription Details</h2>
 
-<table id="subscriptionTable" class="table">
+<table id="subscriptionTable" class="table dark-border-table">
     <thead>
         <tr>
             <th>Name</th>
@@ -32,4 +32,11 @@
             $('#subscriptionTable').DataTable();
         });
     </script>
+
+    <style>
+        /* Add dark border to the table */
+        .dark-border-table {
+            border: 1px solid #333;
+        }
+    </style>
 }

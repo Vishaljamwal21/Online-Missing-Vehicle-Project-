@@ -101,10 +101,10 @@ namespace onlinemissingvehical.Areas.Admin.Controllers
                         switch (status)
                         {
                             case "Pending":
-                                mail.Body = $"Your complaint for vehicle with license plate number {licensePlateNumber} is pending.";
+                                mail.Body = $"Your complaint for vehicle with license plate number {licensePlateNumber} is pending.We can find it as soon as possible.";
                                 break;
                             case "Processing":
-                                mail.Body = $"Your complaint for vehicle with license plate number {licensePlateNumber} is under processing.";
+                                mail.Body = $"Your complaint for vehicle with license plate number {licensePlateNumber} is under processing.We can find it as soon as possible.";
                                 break;
                             case "Recovered":
                                 mail.Body = $"Your Vehicle with license plate number {licensePlateNumber} has been recovered. Your vehicle will be delivered to your address shortly.";

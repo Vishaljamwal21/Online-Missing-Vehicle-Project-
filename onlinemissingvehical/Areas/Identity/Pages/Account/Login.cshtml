@@ -5,13 +5,21 @@
     ViewData["Title"] = "";
 }
 
+<style>
+    body {
+        background-image: url('https://media.istockphoto.com/id/1205468676/photo/man-stealing-a-car.jpg?b=1&s=612x612&w=0&k=20&c=clPufCT1MDgY1UvUO5TeNswq97F6sp4LmfNitN_veqQ=');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <section>
                 <form id="account" method="post">
-                    <h2>Use a local account to log in.</h2>
+                    <h2 class="text-white text-center">Log In</h2>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-floating mb-3">
@@ -35,7 +43,7 @@
                     </div>
                     <div>
                         <p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            <a class="text-dark" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                         </p>
                     </div>
                 </form>

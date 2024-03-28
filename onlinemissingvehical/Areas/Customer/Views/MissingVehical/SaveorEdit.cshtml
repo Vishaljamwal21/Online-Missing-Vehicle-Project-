@@ -7,7 +7,6 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-
 <div>
     <h2 class="text-primary border-bottom">@title</h2>
 </div>
@@ -31,17 +30,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Model"></label>
-                <input asp-for="Model" class="form-control" />
+                <input asp-for="Model" class="form-control" maxlength="16" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Color"></label>
-                <input asp-for="Color" class="form-control" />
+                <input asp-for="Color" class="form-control" maxlength="8" oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LicensePlateNumber"></label>
-                <input asp-for="LicensePlateNumber" class="form-control" />
+                <input asp-for="LicensePlateNumber" class="form-control" maxlength="16" />
                 <span asp-validation-for="LicensePlateNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -64,7 +63,7 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col">
-                        <button type="submit" class="btn btn-info form-control">Save</button>
+                        <button type="submit" class="btn btn-primary form-control">Save</button>
                     </div>
                     <div class="col">
                         <a asp-action="Index" class="btn btn-success form-control">Back To List</a>

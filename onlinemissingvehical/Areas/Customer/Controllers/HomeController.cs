@@ -21,25 +21,17 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated) 
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
-                if (User.IsInRole("Admin"))
-                {
-                    var statusUpdates = await _context.StatusUpdates
-                        .Include(s => s.MissingVehicle)
-                        .ToListAsync();
-                    return View(statusUpdates);
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account", new { area = "Identity" });
-                }
+                var statusUpdates = await _context.StatusUpdates
+                    .Include(s => s.MissingVehicle)
+                    .ToListAsync();
+                return View(statusUpdates);
             }
-            else
-            {
-                return RedirectToAction("Login", "Account", new { area = "Identity" });
-            }
+
+            return RedirectToAction("Login", "Account", new { area = "Identity" });
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
