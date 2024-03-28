@@ -133,20 +133,6 @@ namespace onlinemissingvehical.Areas.Admin.Controllers
             return View(statusUpdate);
         }
 
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Delete(int id)
-        //{
-        //    var statusUpdate = _context.StatusUpdates.Find(id);
-        //    if (statusUpdate == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.StatusUpdates.Remove(statusUpdate);
-        //    _context.SaveChanges();
-        //    return RedirectToAction(nameof(Index));
-        //}
+       
     }
 }
