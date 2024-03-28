@@ -1,0 +1,75 @@
+﻿@model onlinemissingvehical.Models.Subscription
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subscription</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Subscription Details
+                    </div>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <p>@ViewBag.Message</p>
+                        }
+                        else
+                        {
+                            <div>
+                                <h4>User Details</h4>
+                                <hr />
+                                <dl class="row">
+                                    <dt class="col-sm-4">
+                                        @Html.DisplayNameFor(model => model.User.Name)
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Html.DisplayFor(model => model.User.Name)
+                                    </dd>
+
+                                    <dt class="col-sm-4">
+                                        @Html.DisplayNameFor(model => model.User.City)
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Html.DisplayFor(model => model.User.City)
+                                    </dd>
+
+                                    <dt class="col-sm-4">
+                                        @Html.DisplayNameFor(model => model.User.State)
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Html.DisplayFor(model => model.User.State)
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div>
+                                <hr />
+                                <dl class="row">
+                                    <dt class="col-sm-4">
+                                        @Html.DisplayNameFor(model => model.SubscriptionPrice)
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Html.DisplayFor(model => model.SubscriptionPrice)
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <form method="post" asp-action="Subscribe">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

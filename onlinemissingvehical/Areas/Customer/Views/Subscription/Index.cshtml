@@ -1,0 +1,35 @@
+﻿@model List<onlinemissingvehical.Models.Subscription>
+
+<h2>Subscription Details</h2>
+
+<table id="subscriptionTable" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subscription Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subscription in Model)
+        {
+            <tr>
+                <td>@subscription.User.Name</td>
+                <td>@subscription.User.Email</td>
+                <td>$@subscription.SubscriptionPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $('#subscriptionTable').DataTable();
+        });
+    </script>
+}

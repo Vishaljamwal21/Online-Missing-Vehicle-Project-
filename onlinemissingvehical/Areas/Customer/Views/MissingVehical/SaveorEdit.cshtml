@@ -1,0 +1,108 @@
+﻿@model onlinemissingvehical.Models.MissingVehicle
+@{
+    ViewData["Title"] = "SaveorEdit";
+    var title = Model.Id != 0 ? "Edit Vehicle Complaint" : "New Vehicle Complaint";
+}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+
+<div>
+    <h2 class="text-primary border-bottom">@title</h2>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != 0)
+            {
+                <input type="hidden" asp-for="@Model.Id" />
+            }
+            <div class="form-group">
+                <label asp-for="VehicleType"></label>
+                <select asp-for="VehicleType" class="form-control">
+                    <option value="">Select Vehicle Type</option>
+                    <option value="Car">Car</option>
+                    <option value="Bike">Bike</option>
+                    <option value="Truck">Truck</option>
+                </select>
+                <span asp-validation-for="VehicleType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicensePlateNumber"></label>
+                <input asp-for="LicensePlateNumber" class="form-control" />
+                <span asp-validation-for="LicensePlateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastKnownLocation"></label>
+                <input asp-for="LastKnownLocation" id="lastKnownLocation" class="form-control"readonly />
+                <span asp-validation-for="LastKnownLocation" class="text-danger"></span>
+            </div>
+            </br>
+            <div id="map" style="height: 400px;"></div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input type="file" name="ImageUrl" id="uploadBox" accept="image/*" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment"></label>
+                <textarea asp-for="Comment" class="form-control"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            </br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-info form-control">Save</button>
+                    </div>
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success form-control">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" height="400" width="600" />
+        }
+      
+    </div>
+</div>
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13); // Set default view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker;
+        map.on('click', function (e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementById('lastKnownLocation').value = e.latlng.lat + ', ' + e.latlng.lng; // Set input value
+        });
+
+        // Add search control
+        L.Control.geocoder().addTo(map);
+    </script>
+}

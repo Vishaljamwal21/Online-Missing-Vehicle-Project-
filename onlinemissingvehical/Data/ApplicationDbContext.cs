@@ -11,5 +11,8 @@ namespace onlinemissingvehical.Data
         {
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<MissingVehicle> MissingVehicles { get; set; }
+        public DbSet<StatusUpdate> StatusUpdates { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
     }
 }

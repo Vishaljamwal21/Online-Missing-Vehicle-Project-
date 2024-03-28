@@ -178,14 +178,23 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                     }
 
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //{
+                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    //}
+                    //else
+                    //{
+                    //    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //    return LocalRedirect(returnUrl);
+                    //}
+                    // Check if user is Admin or User and redirect accordingly
+                    if (Input.Role == SD.Role_Admin)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToAction("Index", "Home", new { area = "Customer" });
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "MissingVehical", new { area = "Customer" });
                     }
                 }
                 foreach (var error in result.Errors)

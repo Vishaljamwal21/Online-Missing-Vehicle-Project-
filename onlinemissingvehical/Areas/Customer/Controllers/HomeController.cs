@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using onlinemissingvehical.Data;
 using onlinemissingvehical.Models;
 using System.Diagnostics;
 
@@ -8,20 +11,34 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            if (User.Identity.IsAuthenticated) 
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    var statusUpdates = await _context.StatusUpdates
+                        .Include(s => s.MissingVehicle)
+                        .ToListAsync();
+                    return View(statusUpdates);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account", new { area = "Identity" });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", new { area = "Identity" });
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
