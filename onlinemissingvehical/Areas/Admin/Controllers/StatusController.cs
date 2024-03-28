@@ -10,7 +10,6 @@ using System.Security.Claims;
 
 namespace onlinemissingvehical.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = SD.Role_Admin)]
     [Area("Admin")]
     public class StatusController : Controller
     {

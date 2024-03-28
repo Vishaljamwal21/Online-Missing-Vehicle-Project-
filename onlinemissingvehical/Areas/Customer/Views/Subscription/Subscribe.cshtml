@@ -18,6 +18,7 @@
                         @if (!string.IsNullOrEmpty(ViewBag.Message))
                         {
                             <p>@ViewBag.Message</p>
+                            <a href="@Url.Action("Index", "MissingVehical", new { area = "Customer" })" class="btn btn-secondary">Back</a>
                         }
                         else
                         {
