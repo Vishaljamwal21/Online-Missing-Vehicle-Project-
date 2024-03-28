@@ -4,6 +4,7 @@
     <table id="tblData" class="table table-bordered table-striped table-active">
         <thead>
             <tr>
+                <td>Email</td>
                 <th>Vehicle Type</th>
                 <th>Model</th>
                 <th>Color</th>
@@ -18,6 +19,7 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>@item.User.UserName</td>
                     <td>@item.VehicleType</td>
                     <td>@item.Model</td>
                     <td>@item.Color</td>

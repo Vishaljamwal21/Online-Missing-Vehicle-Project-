@@ -28,6 +28,7 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
                 {
                     var statusUpdates = await _context.StatusUpdates
                         .Include(s => s.MissingVehicle)
+                        .ThenInclude(m => m.User) 
                         .ToListAsync();
                     return View(statusUpdates);
                 }
@@ -36,6 +37,7 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var statusUpdates = await _context.StatusUpdates
                         .Include(s => s.MissingVehicle)
+                        .ThenInclude(m => m.User)
                         .Where(s => s.MissingVehicle.UserId == userId)
                         .ToListAsync();
                     return View(statusUpdates);

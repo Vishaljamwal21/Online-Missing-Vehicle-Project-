@@ -23,11 +23,12 @@ namespace onlinemissingvehical.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var missingVehicles = await _context.MissingVehicles
-                                        .Where(m => !_context.StatusUpdates
-                                                        .Where(s => s.Status == "Recovered")
-                                                        .Select(s => s.MissingVehicleId)
-                                                        .Contains(m.Id))
-                                        .ToListAsync();
+                .Include(m => m.User)
+                .Where(m => !_context.StatusUpdates
+                                .Where(s => s.Status == "Recovered")
+                                .Select(s => s.MissingVehicleId)
+                                .Contains(m.Id))
+                .ToListAsync();
             return View(missingVehicles);
         }
 
@@ -133,6 +134,6 @@ namespace onlinemissingvehical.Areas.Admin.Controllers
             return View(statusUpdate);
         }
 
-       
+
     }
 }

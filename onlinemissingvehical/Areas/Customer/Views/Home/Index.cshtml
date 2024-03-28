@@ -28,6 +28,7 @@
     <thead>
         <tr>
             <th>Status</th>
+            <th>Email</th>
             <th>Vehicle Type</th>
             <th>Model</th>
             <th>Color</th>
@@ -46,6 +47,7 @@
         {
             <tr>
                 <td>@statusUpdate.Status</td>
+                <td>@statusUpdate.MissingVehicle.User.UserName</td>
                 <td>@statusUpdate.MissingVehicle.VehicleType</td>
                 <td>@statusUpdate.MissingVehicle.Model</td>
                 <td>@statusUpdate.MissingVehicle.Color</td>
