@@ -123,7 +123,7 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        }
+        }       
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -131,7 +131,6 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                //var user = CreateUser();
                 var user = new ApplicationUser()
                 {
                     Name = Input.Name,
@@ -139,7 +138,7 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     City = Input.City,
                     State = Input.State,
-                    PhoneNumber=Input.PhoneNumber,
+                    PhoneNumber = Input.PhoneNumber,
                     Role = Input.Role
                 };
 
@@ -151,19 +150,7 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    //var userId = await _userManager.GetUserIdAsync(user);
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    //    protocol: Request.Scheme);
-
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    //Create Role
+                    // Create Role
                     if (!await _roleManager.RoleExistsAsync(SD.Role_Admin))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
@@ -173,38 +160,35 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(SD.Role_User));
                     }
 
-                    /* await _userManager.AddToRoleAsync(user, SD.Role_Admin); *///for creating Admin only
-                                                                                 // Check if any user with admin role exists
                     var adminUserExists = await _userManager.GetUsersInRoleAsync(SD.Role_Admin);
                     if (adminUserExists.Count > 0)
                     {
-                        // If an admin user exists, assign user role to the new user
                         await _userManager.AddToRoleAsync(user, SD.Role_User);
                     }
                     else
                     {
-                        // If no admin user exists, assign admin role to the new user
                         await _userManager.AddToRoleAsync(user, SD.Role_Admin);
                     }
 
-
-                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    //{
-                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    //}
-                    //else
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //    return LocalRedirect(returnUrl);
-                    //}
-                    // Check if user is Admin or User and redirect accordingly
-                    if (Input.Role == SD.Role_Admin)
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Customer" });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {
-                        return RedirectToAction("Index", "MissingVehical", new { area = "Customer" });
+                        
+                        if (user.Role == SD.Role_Admin)
+                        {
+                            return Redirect("/customer/Home/Index");
+                        }
+                        else if (user.Role == SD.Role_User)
+                        {
+                            return Redirect("/customer/MissingVehical/Index");
+                        }
+                        else
+                        {
+                            return LocalRedirect(returnUrl);
+                        }
                     }
                 }
                 foreach (var error in result.Errors)
@@ -213,9 +197,10 @@ namespace onlinemissingvehical.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
+
+
 
         private IdentityUser CreateUser()
         {
