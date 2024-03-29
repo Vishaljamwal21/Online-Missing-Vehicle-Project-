@@ -8,6 +8,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Subscription Price</th>
+            <th>Action</th> <!-- Add a new column for the action -->
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,11 @@
                 <td>@subscription.User.Name</td>
                 <td>@subscription.User.Email</td>
                 <td>$@subscription.SubscriptionPrice</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@subscription.Id" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

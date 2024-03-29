@@ -92,5 +92,42 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
             }
             return RedirectToAction("Index", "MissingVehical", new { area = "Customer" });
         }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var subscription = _context.Subscriptions.Find(id);
+            if (subscription == null)
+            {
+                return NotFound();
+            }       
+            _context.Subscriptions.Remove(subscription);
+            _context.SaveChanges();
+            try
+            {
+                string smtpServer = "smtp-mail.outlook.com";
+                int smtpPort = 587;
+                string smtpUsername = "thakurvishaljamwal@outlook.com";
+                string smtpPassword = "Vishal@2106";
+
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(smtpUsername);
+                mail.To.Add("thakurvishaljamwal@gmail.com");
+                mail.Subject = "Subscription Cancellation Notification";
+                mail.Body = "Your subscription has been canceled. Please purchase again for further updates about your complaints.";
+
+                SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                // Handle email sending failure
+                ViewBag.Error = "An error occurred while sending email: " + ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

@@ -122,7 +122,7 @@ namespace onlinemissingvehical.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            var missingVehicleInDb = _context.MissingVehicles.FirstOrDefault(m => m.Id == id);
+            var missingVehicleInDb = _context.MissingVehicles.FirstOrDefault(m => m.Id == id);  
             if (missingVehicleInDb == null)
                 return NotFound();
             if (!string.IsNullOrEmpty(missingVehicleInDb.ImageUrl))
